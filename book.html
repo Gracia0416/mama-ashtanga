@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Book a Mama Ashtanga yoga class with Wirni in USJ 5.">
+  <title>Book a Class · Mama Ashtanga</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo-lockup" href="index.html"><img class="logo-mark" src="assets/mama-ashtanga-logo.png" alt="Mama Ashtanga logo"><span class="brand">MAMA ASHTANGA<span>Yoga with Wirni</span></span></a>
+    <nav class="nav-links"><a href="about.html">About</a><a href="location.html">Location</a><a href="book.html" class="nav-btn">Book a class</a></nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="kicker">Come practice</div>
+    <h1>Choose your class.</h1>
+    <p>Pick a class first, then choose an available date. Fully booked dates are disabled automatically. Your price appears after you select a session.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container booking-layout-v2">
+    <aside class="class-picker">
+      <div class="booking-step"><span class="step-dot done">1</span><div><div class="kicker">Choose a class</div></div></div>
+      <button class="class-option" data-type="group" data-day="2" data-label="Tuesday Group Yoga" data-time="7:00 PM to 8:00 PM">
+        <strong>Tuesday</strong><span>Group Yoga · 7:00 PM to 8:00 PM</span><div class="availability-line"><i class="availability-dot"></i><span>Availability shown by date</span></div>
+      </button>
+      <button class="class-option" data-type="group" data-day="4" data-label="Thursday Group Yoga" data-time="7:00 PM to 8:00 PM">
+        <strong>Thursday</strong><span>Group Yoga · 7:00 PM to 8:00 PM</span><div class="availability-line"><i class="availability-dot"></i><span>Availability shown by date</span></div>
+      </button>
+
+      <div style="margin-top:28px" class="kicker">Private sessions</div>
+      <button class="class-option" data-type="private" data-day="3" data-label="Wednesday Private Yoga" data-time="By appointment">
+        <strong>Wednesday</strong><span>Private Yoga · by appointment</span>
+      </button>
+      <button class="class-option" data-type="private" data-day="5" data-label="Friday Private Yoga" data-time="By appointment">
+        <strong>Friday</strong><span>Private Yoga · by appointment</span>
+      </button>
+      <p class="booking-note">All classes are at Casa Idaman, USJ 5.</p>
+    </aside>
+
+    <div>
+      <section id="calendarPanel" class="calendar-panel booking-muted">
+        <div class="booking-step"><span id="step2" class="step-dot">2</span><div><div class="kicker">Choose a date</div></div></div>
+        <div class="calendar-toolbar">
+          <button type="button" id="prevMonth" aria-label="Previous month">‹</button>
+          <div id="calendarTitle" class="calendar-title"></div>
+          <button type="button" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <div class="calendar-weekdays"><div>SU</div><div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+        <div class="calendar-legend">
+          <span class="legend-chip"><i class="legend-box available"></i>Available</span>
+          <span class="legend-chip"><i class="legend-box booked"></i>Booked</span>
+          <span class="legend-chip"><i class="legend-box selected"></i>Selected</span>
+        </div>
+        <div id="selectedSession" class="selected-session"></div>
+      </section>
+
+      <section id="detailsPanel" class="form-panel hidden-until-date">
+        <div class="booking-step"><span id="step3" class="step-dot">3</span><div><div class="kicker">Your details</div></div></div>
+        <h2 style="font-size:2.2rem;margin-top:8px">Reserve your mat.</h2>
+        <form id="bookingForm">
+          <div class="field"><label for="name">Your name</label><input id="name" required placeholder="Your name"></div>
+          <div class="field"><label for="phone">Phone number</label><input id="phone" required placeholder="+60..."></div>
+          <div class="field"><label for="note">Anything Wirni should know?</label><textarea id="note" placeholder="First timer, injury, experience level, etc."></textarea></div>
+          <button class="btn" type="submit">Send booking on WhatsApp</button>
+          <p class="notice">Wirni will confirm the booking personally. No payment is taken on this website yet.</p>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container footer-grid"><div class="logo-lockup"><img class="logo-mark" src="assets/mama-ashtanga-logo.png" alt=""><span class="brand">MAMA ASHTANGA<span>Yoga with Wirni</span></span></div><div><a href="tel:+60126243655">+60 12-624 3655</a><br><a href="mailto:wirni.lee@gmail.com">wirni.lee@gmail.com</a></div></div></footer>
+<script src="script.js"></script>
+</body></html>
