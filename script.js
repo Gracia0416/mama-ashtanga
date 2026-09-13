@@ -1,6 +1,24 @@
 
 const WHATSAPP_NUMBER = '60126243655';
 
+const menuToggle = document.querySelector('.menu-toggle');
+const primaryNavigation = document.getElementById('primary-navigation');
+
+menuToggle?.addEventListener('click', () => {
+  const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+  primaryNavigation?.classList.toggle('is-open', !isOpen);
+});
+
+primaryNavigation?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    menuToggle?.setAttribute('aria-label', 'Open navigation menu');
+    primaryNavigation.classList.remove('is-open');
+  });
+});
+
 // BUSINESS SETTINGS
 // Private pricing still needs to be confirmed.
 const CLASS_PRICES = {
