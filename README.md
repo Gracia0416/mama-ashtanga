@@ -1,126 +1,72 @@
-# Mama Ashtanga — static starter website
+# Mama Ashtanga
 
-A simple GitHub Pages-friendly starter site for Wirni's yoga classes.
+A small, static website for Wirni's yoga classes in USJ 5, Subang Jaya. It runs directly on GitHub Pages with no build step.
 
-## Pages
-- `index.html` — home
-- `about.html` — Wirni's story + qualifications
-- `book.html` — weekly class booking request
-- `location.html` — location + decorative map
-- `styles.css` — all styling
-- `script.js` — WhatsApp booking logic
+## Project structure
 
-## Add photos
-Create an `assets` folder and add:
-- `hero.jpg`
-- `wirni.jpg`
-
-The website will automatically use them.
-
-## Publish on GitHub Pages
-
-1. Create a GitHub repository, e.g. `mama-ashtanga`.
-2. Upload all files from this folder to the repository root.
-3. On GitHub, open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select branch **main** and folder **/(root)**.
-6. Save.
-7. GitHub will show your public website URL after deployment.
-
-Typical URL:
-`https://YOUR-USERNAME.github.io/mama-ashtanga/`
-
-## Booking behavior
-For now, submitting the booking form opens WhatsApp with a pre-filled message to:
-`+60 12-624 3655`
-
-No personal data is stored by the website.
-
-## Backend-friendly next step
-When you are ready, you can replace the WhatsApp-only flow with:
-- Supabase for class slots + booking database
-- Firebase for bookings/auth
-- Google Sheets + Apps Script for a very lightweight backend
-- Stripe later if payments are needed
-
-A simple data model could be:
-- `classes(id, day_of_week, class_type, start_time, capacity, is_active)`
-- `bookings(id, class_id, customer_name, phone, email, booking_date, status, created_at)`
-
-This keeps the current frontend reusable when you add a backend.
-
-## Easy maintenance after publishing
-
-For small edits, you do not need to code locally:
-
-1. Open your repository on GitHub.
-2. Click the file you want to change, for example `index.html`.
-3. Click the pencil icon **Edit this file**.
-4. Make your change.
-5. Click **Commit changes**.
-6. GitHub Pages redeploys automatically.
-
-For photos:
-1. Open the `assets` folder in GitHub.
-2. Choose **Add file → Upload files**.
-3. Upload the new image.
-4. Commit the change.
-5. Reference it in HTML as `assets/your-photo.jpg`.
-
-For larger redesigns, download/clone the repository, edit locally, then push the changes back to `main`.
-
-
-## Marking a class as fully booked
-
-This static version now has an interactive calendar.
-
-Open `script.js` and find:
-
-```js
-const BOOKED_DATES = new Set([
-  // Example: '2026-09-15',
-]);
+```text
+.
+├── index.html       Home page
+├── about.html       Wirni's story and qualifications
+├── book.html        Class selection and booking request
+├── location.html    Class location and map
+├── styles.css       Shared site styles
+├── script.js        Calendar, availability, pricing, and WhatsApp flow
+├── assets/          Site images and logo
+├── docs/            Product planning and backlog
+└── supabase/        Database migrations, seed data, and database tests
 ```
 
-To grey out a date, add it in `YYYY-MM-DD` format:
+## Run locally
 
-```js
-const BOOKED_DATES = new Set([
-  '2026-09-15',
-  '2026-09-24',
-]);
+The pages can be opened directly in a browser. For more reliable local testing, serve the directory with any static file server, for example:
+
+```sh
+python3 -m http.server 8000
 ```
 
-Commit the change and GitHub Pages will redeploy automatically.
+Then visit `http://localhost:8000`.
 
-This is intentionally manual for version 1. When bookings grow, connect this calendar to Supabase so availability updates automatically for every visitor.
+## Current booking flow
 
+The booking page lets a visitor select a class and date, enter their contact details, and open WhatsApp with a prepared message to `+60 12-624 3655`.
 
-## Capacity model
-
-Group classes are designed for a maximum of 6 students.
-
-The frontend now understands a capacity of 6 and greys out dates whose booking count is 6 or more.
-
-For the current GitHub Pages version, booking counts are only demo/static data in `script.js`.
-This is not safe enough for real live capacity because multiple visitors do not share the same browser state.
-
-When Supabase is added, the correct rule should be enforced in the database/backend:
-
-- count confirmed bookings for the selected class/date
-- if count >= 6, reject any new booking
-- frontend renders that date as full/disabled
-- the UI does not need to display the maximum capacity itself
-
-## Pricing
-
-Set the real prices in `script.js`:
+The site currently has no database. Prices and sample booking counts live near the top of `script.js`:
 
 ```js
 const CLASS_PRICES = {
-  group: 35,
-  private: 120
+  group: null,
+  private: null
 };
+
+const BOOKING_COUNTS = {};
 ```
 
-The homepage price list and the selected-session price will update automatically.
+Group capacity is set to six. This browser-side check is only for display and cannot prevent two people from booking the final place at the same time.
+
+## Backend direction
+
+The next version should store class sessions and bookings in a database. A practical first version can use Supabase for a hosted Postgres database and a small API, while keeping these static pages as the frontend.
+
+See [the product backlog](docs/BACKLOG.md) for the proposed releases and open decisions, and [the database guide](docs/DATABASE.md) for a visual explanation of the schema, booking flow, and security model.
+
+The deployed development API is documented in [the booking API guide](docs/API.md).
+The complete happy path, unhappy paths, API calls, and environment status are summarized in [the booking flow one-pager](docs/BOOKING-FLOW.md).
+
+Suggested data model:
+
+- `class_types`: name, duration, capacity, price, and whether the class is active
+- `class_sessions`: class type, start time, location, status, and optional capacity override
+- `bookings`: session, customer name, phone, note, status, and creation time
+
+The backend must enforce capacity in a transaction. The frontend should read available sessions from the API and submit bookings to it; WhatsApp can remain as an optional confirmation step.
+
+Do not put database service keys or other secrets in `script.js`. Local `.env` files are ignored by Git, while a future `.env.example` may document required variable names safely.
+
+The initial Supabase schema is versioned in `supabase/migrations`. It exposes only privacy-safe class availability to browser clients. Booking creation, email confirmation, and cancellation mutations are reserved for protected server endpoints so customer data and business rules cannot be bypassed from the browser.
+
+The current defaults are RM30 per person and six places for group classes, with a maximum of three people per group booking. Private classes have two places; their price remains unset until the pricing model is confirmed. Pending guest bookings hold places for 30 minutes while email verification is completed.
+
+## Publish
+
+In the GitHub repository settings, open **Pages**, choose **Deploy from a branch**, and publish the `main` branch from `/(root)`. GitHub Pages will redeploy after each push to `main`.

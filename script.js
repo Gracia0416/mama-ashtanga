@@ -2,9 +2,9 @@
 const WHATSAPP_NUMBER = '60126243655';
 
 // BUSINESS SETTINGS
-// Fill in the real prices later, e.g. group: 35, private: 120.
+// Private pricing still needs to be confirmed.
 const CLASS_PRICES = {
-  group: null,
+  group: 30,
   private: null
 };
 

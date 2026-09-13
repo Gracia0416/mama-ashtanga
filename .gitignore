@@ -1,0 +1,19 @@
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated output (for the future backend)
+node_modules/
+dist/
+coverage/
+
+# Local Supabase CLI state
+supabase/.temp/
+
+# Logs
+*.log
