@@ -1,6 +1,24 @@
 
 const WHATSAPP_NUMBER = '60126243655';
 
+const menuToggle = document.querySelector('.menu-toggle');
+const primaryNavigation = document.getElementById('primary-navigation');
+
+menuToggle?.addEventListener('click', () => {
+  const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+  primaryNavigation?.classList.toggle('is-open', !isOpen);
+});
+
+primaryNavigation?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    menuToggle?.setAttribute('aria-label', 'Open navigation menu');
+    primaryNavigation.classList.remove('is-open');
+  });
+});
+
 // BUSINESS SETTINGS
 // Private pricing still needs to be confirmed.
 const CLASS_PRICES = {
@@ -225,3 +243,15 @@ document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 });
+
+const revealItems = document.querySelectorAll('.reveal');
+if (revealItems.length) {
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting));
+    }, {threshold: 0.18});
+    revealItems.forEach((item) => revealObserver.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+  }
+}
