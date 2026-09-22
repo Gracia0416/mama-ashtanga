@@ -77,7 +77,7 @@ erDiagram
 
 ### Class type versus class session
 
-A **class type** is the reusable business definition. “Group Yoga” costs RM30 per person, normally holds six people, and allows a maximum of three people in one booking.
+A **class type** is the reusable business definition. “Group Yoga” costs RM40 per person, normally holds six people, and allows a maximum of three people in one booking.
 
 A **class session** is one occurrence on the calendar, such as Group Yoga on Friday, 18 September 2026 at 6:00 PM. Its capacity is copied from the class type but can be changed for that specific date.
 
@@ -102,7 +102,7 @@ A booking answers “who is attending which class?” A payment answers “how m
 
 They change independently. A confirmed booking can still be unpaid, and a cancelled paid booking can be waiting for a refund. Keeping separate payment rows preserves that history.
 
-Money is stored as integer sen. RM30 is stored as `3000`. Integer arithmetic avoids floating-point rounding errors.
+Money is stored as integer sen. RM40 is stored as `4000`. Integer arithmetic avoids floating-point rounding errors.
 
 ## Booking lifecycle
 
@@ -205,7 +205,7 @@ The migration is the source of truth. Making the same database change by hand in
 
 | Rule | Current value |
 |---|---:|
-| Group price per person | RM30 |
+| Group price per person | RM40 |
 | Group session capacity | 6 |
 | Maximum group party size | 3 |
 | Private session capacity | 2 |

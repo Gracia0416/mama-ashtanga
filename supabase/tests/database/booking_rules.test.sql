@@ -10,8 +10,8 @@ select has_table('public', 'payments', 'payments exists');
 
 select is(
   (select price_per_person_cents from public.class_types where slug = 'group'),
-  3000,
-  'group class costs RM30 per person'
+  4000,
+  'group class costs RM40 per person'
 );
 select is(
   (select default_capacity from public.class_types where slug = 'group'),

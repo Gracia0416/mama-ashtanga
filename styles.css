@@ -9,7 +9,8 @@
   --line:rgba(74,59,49,.16);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--site-header-height, 120px) + 16px)}
 body{
   margin:0;
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -291,9 +292,11 @@ textarea{min-height:110px;resize:vertical}
   background:#fffdf9;color:var(--brown);font-size:1.1rem;cursor:pointer
 }
 .calendar-title{font-family:Georgia,serif;font-size:1.5rem}
-.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.booking-layout-v2 > *{min-width:0}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
 .calendar-weekdays div{text-align:center;font-size:.7rem;font-weight:800;letter-spacing:.08em;color:#8b7b70;padding:4px}
 .calendar-day{
+  min-width:0;padding:0;
   aspect-ratio:1/1;border-radius:14px;border:1px solid transparent;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:#f3eee7;color:#4a3b31;cursor:pointer;position:relative;
@@ -318,6 +321,20 @@ textarea{min-height:110px;resize:vertical}
 .form-panel.hidden-until-date{display:none}
 .form-panel.show{display:block}
 .booking-note{font-size:.8rem;color:#77695e;margin-top:14px}
+.booking-status{margin-bottom:20px;padding:13px 16px;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+.booking-status.success{background:#eef1e8}.booking-status.error{background:#f8e9e4;border-color:#d9afa1}
+.text-button{border:0;background:none;color:var(--brown);font:inherit;font-weight:800;text-decoration:underline;cursor:pointer}
+.payment-field{border:0;padding:0;margin:0 0 16px}.payment-field legend{font-size:.84rem;font-weight:700;margin-bottom:7px}
+.payment-field label{display:inline-flex;align-items:center;gap:7px;margin-right:22px;font-weight:500}
+.payment-field input{width:auto}
+.confirmation-panel h2,.manage-panel h2{font-size:2.4rem;margin:8px 0 16px}
+.booking-reference{font-size:1.1rem}.management-box{padding:20px;border-radius:16px;background:#eee4d6;margin:22px 0}
+.management-box p{margin:5px 0 12px}.management-box a{text-decoration:underline;font-weight:800;overflow-wrap:anywhere}
+.confirmation-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.manage-panel{max-width:760px;background:var(--white);border:1px solid var(--line);border-radius:24px;padding:34px}
+.booking-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
+.booking-summary div{background:#f7f1e8;border-radius:14px;padding:14px}.booking-summary dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.booking-summary dd{margin:4px 0 0;text-transform:capitalize}
+.danger-btn{background:#7f3f35}.policy-note{padding:18px;border-left:3px solid var(--clay);background:#f7f1e8}
 
 .location-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 
@@ -329,6 +346,7 @@ textarea{min-height:110px;resize:vertical}
   .photo-card{flex-basis:84vw}
   .photo-card img{height:420px}
   .booking-layout-v2{grid-template-columns:1fr}
+  .booking-summary{grid-template-columns:1fr}
   .about-gallery{grid-template-columns:1fr}
   .about-gallery img,.about-gallery img:first-child{height:auto}
   .calendar-grid,.calendar-weekdays{gap:5px}
@@ -370,6 +388,7 @@ textarea{min-height:110px;resize:vertical}
   display:flex;justify-content:space-between;gap:16px;align-items:center
 }
 .session-price strong{font-size:1rem}
+.session-price{flex-wrap:wrap}
 .session-price span{font-family:Georgia,serif;font-size:1.35rem}
 
 .calendar-day.full{

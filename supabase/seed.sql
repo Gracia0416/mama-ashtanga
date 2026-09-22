@@ -6,7 +6,7 @@ insert into public.class_types (
   max_party_size,
   duration_minutes
 ) values
-  ('group', 'Group Yoga', 3000, 6, 3, 60),
+  ('group', 'Group Yoga', 4000, 6, 3, 60),
   ('private', 'Private Yoga', null, 2, 2, 60)
 on conflict (slug) do update set
   name = excluded.name,

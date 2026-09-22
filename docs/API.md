@@ -70,5 +70,4 @@ The database accepts the cancellation only for a confirmed booking at least 24 h
 - CAPTCHA and endpoint rate limiting are not connected yet.
 - The CORS policy currently permits development requests from any origin.
 - Private pricing is not decided, so private bookings create no payment row.
-- The website still uses its earlier static calendar and WhatsApp-only submission flow.
-
+- The website is connected to this development API. A separate production project is still required before accepting real customer bookings.

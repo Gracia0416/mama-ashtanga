@@ -98,9 +98,12 @@ Deno.serve(async (request) => {
 
     return json({ error: 'Route not found' }, 404)
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error)
+    const message = error instanceof Error
+      ? error.message
+      : typeof error === 'object' && error && 'message' in error
+        ? String(error.message)
+        : 'The booking request could not be completed'
     const status = message.includes('24 hours') || message.includes('places remain') ? 409 : 400
     return json({ error: message }, status)
   }
 })
-

@@ -11,7 +11,8 @@ A small, static website for Wirni's yoga classes in USJ 5, Subang Jaya. It runs 
 ├── book.html        Class selection and booking request
 ├── location.html    Class location and map
 ├── styles.css       Shared site styles
-├── script.js        Calendar, availability, pricing, and WhatsApp flow
+├── script.js        Shared navigation and page interactions
+├── booking.js       Live booking, availability, and cancellation flow
 ├── assets/          Site images and logo
 ├── docs/            Product planning and backlog
 └── supabase/        Database migrations, seed data, and database tests
@@ -29,20 +30,9 @@ Then visit `http://localhost:8000`.
 
 ## Current booking flow
 
-The booking page lets a visitor select a class and date, enter their contact details, and open WhatsApp with a prepared message to `+60 12-624 3655`.
+The booking page reads upcoming sessions from the development Supabase API. A visitor can choose a live session, see remaining capacity, enter contact and payment preferences, and create a database booking. The confirmation provides a private management link for viewing or cancelling the booking and an optional prepared WhatsApp message to Wirni.
 
-The site currently has no database. Prices and sample booking counts live near the top of `script.js`:
-
-```js
-const CLASS_PRICES = {
-  group: null,
-  private: null
-};
-
-const BOOKING_COUNTS = {};
-```
-
-Group capacity is set to six. This browser-side check is only for display and cannot prevent two people from booking the final place at the same time.
+The database performs the final 24-hour and capacity checks while locking the session, so simultaneous requests cannot overbook a class.
 
 ## Backend direction
 
@@ -65,7 +55,7 @@ Do not put database service keys or other secrets in `script.js`. Local `.env` f
 
 The initial Supabase schema is versioned in `supabase/migrations`. It exposes only privacy-safe class availability to browser clients. Booking creation, email confirmation, and cancellation mutations are reserved for protected server endpoints so customer data and business rules cannot be bypassed from the browser.
 
-The current defaults are RM30 per person and six places for group classes, with a maximum of three people per group booking. Private classes have two places; their price remains unset until the pricing model is confirmed. Pending guest bookings hold places for 30 minutes while email verification is completed.
+The current defaults are RM40 per person and six places for group classes, with up to six people per group booking. Private classes have two places; their price remains unset until the pricing model is confirmed. Email verification and automatic confirmation delivery remain follow-up work.
 
 ## Publish
 

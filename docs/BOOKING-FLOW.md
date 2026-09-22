@@ -122,7 +122,7 @@ sequenceDiagram
 
 | Class | Schedule | Capacity | Price | Booking rule |
 |---|---|---:|---:|---|
-| Group Yoga | Friday, 6:00–7:00 PM | 6 | RM30/person | Book at least 24 hours ahead |
+| Group Yoga | Friday, 6:00–7:00 PM | 6 | RM40/person | Book at least 24 hours ahead |
 | Private Yoga | Monday, preferred time requested | 2 | To be decided | Book at least 24 hours ahead |
 
 Customer cancellation is refundable at least 24 hours before class. Inside 24 hours, online cancellation is closed and the booking is non-refundable. If Wirni cancels a class, paid customers are eligible for a full refund.

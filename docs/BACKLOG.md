@@ -12,14 +12,14 @@ The first release should include:
 
 1. Guest booking with name, phone number, and verified email.
 2. Live class availability from Supabase.
-3. Group classes at RM30 per person with six total places.
+3. Group classes at RM40 per person with six total places.
 4. Private classes with two total places.
 5. Individual and small group bookings.
 6. Cancellation through a secure email link at least 24 hours before class for a refund.
 7. Cash and DuitNow QR as manually reconciled payment methods.
 8. A simple admin view for Wirni to manage sessions, bookings, and payments.
 
-Automated payment collection should be a later release. A RM1 fixed gateway fee would be material on a RM30 booking, and static QR payments do not automatically tell the website that a payment succeeded.
+Automated payment collection should be a later release. A RM1 fixed gateway fee would be material on a RM40 booking, and static QR payments do not automatically tell the website that a payment succeeded.
 
 Member accounts and saved profiles are intentionally deferred until after the MVP. This avoids SMS login costs while the booking workflow is being validated.
 
@@ -32,7 +32,7 @@ These are working decisions for planning and can be changed before implementatio
 | Login | Deferred until after MVP | Avoids SMS costs while validating the booking workflow |
 | Email | Required and verified during booking | Used for booking confirmations, secure cancellation links, and receipts |
 | Guest booking | Required for MVP | Every customer can book without creating an account |
-| Group class | RM30 per person, capacity 6 | Matches the requested business rule |
+| Group class | RM40 per person, capacity 6 | Matches the requested business rule |
 | Private class | Capacity 2 | Supports one or two people in the session |
 | Group booking | Allow 1–6 places per booking | Supports individual and whole-group reservations within the six-place class capacity |
 | Payment in MVP | Cash or merchant DuitNow QR | Easy to launch and validate before paying for a gateway |
@@ -61,7 +61,7 @@ Avoid storing passwords, card numbers, online-banking credentials, identity docu
 
 - `id`
 - `name`: group or private
-- `price_per_person_cents`: `3000` for RM30
+- `price_per_person_cents`: `4000` for RM40
 - `default_capacity`: `6` for group, `2` for private
 - `duration_minutes`
 - `is_active`
@@ -163,18 +163,18 @@ The public availability endpoint should return session details, price, capacity,
 
 Acceptance criteria:
 
-- Group sessions default to six places and RM30 per person.
+- Group sessions default to six places and RM40 per person.
 - Private sessions default to two places.
 - Browser clients cannot read or change another member's personal data.
 - Secret/service keys never appear in frontend code or Git history.
 
 ### Epic 2 — guest identity and contact verification
 
-- [ ] Collect the customer's name, phone number, and email during booking.
+- [x] Collect the customer's name, phone number, and email during booking.
 - [ ] Verify the email address before confirming the first booking.
-- [ ] Store contact details as a booking snapshot.
+- [x] Store contact details as a booking snapshot.
 - [ ] Protect booking submission with rate limits and CAPTCHA.
-- [ ] Generate a secure cancellation token for each confirmed booking.
+- [x] Generate a secure cancellation token for each confirmed booking.
 
 Acceptance criteria:
 
@@ -184,12 +184,12 @@ Acceptance criteria:
 
 ### Epic 3 — live sessions, availability, and booking
 
-- [ ] Replace hard-coded weekdays and booking counts with database sessions.
+- [x] Replace hard-coded weekdays and booking counts with database sessions.
 - [x] Add a public endpoint for upcoming session availability.
-- [ ] Display remaining places on the calendar.
-- [ ] Add party-size selection and optional attendee names.
+- [x] Display remaining places on the calendar.
+- [x] Add party-size selection. Optional attendee names remain a follow-up.
 - [x] Add a secure booking endpoint with an atomic capacity check.
-- [ ] Show a booking confirmation and reference number.
+- [x] Show a booking confirmation and reference number.
 - [x] Retain WhatsApp as an optional follow-up link.
 
 Acceptance criteria:
@@ -201,8 +201,8 @@ Acceptance criteria:
 
 ### Epic 4 — secure cancellation
 
-- [ ] Allow refundable self-service cancellation at least 24 hours before class.
-- [ ] Disable self-service cancellation inside 24 hours and show the non-refundable policy.
+- [x] Allow refundable self-service cancellation at least 24 hours before class.
+- [x] Disable self-service cancellation inside 24 hours and show the non-refundable policy.
 - [x] Validate the cancellation token on the server.
 - [x] Restore capacity immediately after cancellation.
 - [x] Record who cancelled, when, and why.
@@ -216,11 +216,11 @@ Acceptance criteria:
 
 ### Epic 5 — manual payments
 
-- [ ] Let the member choose cash or DuitNow QR.
+- [x] Let the member choose cash or DuitNow QR.
 - [ ] Display the merchant QR and clear payment instructions.
-- [ ] Record the selected method and amount due.
+- [x] Record the selected method and amount due.
 - [ ] Add an admin action to mark payment as paid.
-- [ ] Show payment status on the secure booking confirmation page.
+- [x] Show payment status on the secure booking management page.
 - [ ] Add a daily list of unpaid and pending-verification bookings.
 
 Acceptance criteria:

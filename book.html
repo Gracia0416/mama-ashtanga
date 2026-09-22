@@ -23,7 +23,9 @@
 </section>
 
 <section class="section">
-  <div class="container booking-layout-v2">
+  <div id="bookingStatus" class="container booking-status" role="status" aria-live="polite">Loading live class availability…</div>
+
+  <div id="bookingExperience" class="container booking-layout-v2">
     <aside class="class-picker">
       <div class="booking-step"><span class="step-dot done">1</span><div><div class="kicker">Choose a class</div></div></div>
       <button class="class-option" data-type="group" data-day="5" data-label="Friday Group Yoga" data-time="6:00 PM to 7:00 PM">
@@ -60,16 +62,25 @@
         <h2 style="font-size:2.2rem;margin-top:8px">Reserve your mat.</h2>
         <form id="bookingForm">
           <div class="field"><label for="name">Your name</label><input id="name" required placeholder="Your name"></div>
-          <div class="field"><label for="phone">Phone number</label><input id="phone" required placeholder="+60..."></div>
+          <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="phone">Phone number</label><input id="phone" type="tel" autocomplete="tel" required placeholder="+60..."></div>
+          <div class="field"><label for="partySize">Number of people</label><select id="partySize" required></select></div>
+          <div id="preferredTimeField" class="field" hidden><label for="preferredTime">Preferred time</label><input id="preferredTime" type="time"></div>
+          <fieldset class="field payment-field"><legend>How would you like to pay?</legend><label><input type="radio" name="paymentMethod" value="cash" checked> Cash</label><label><input type="radio" name="paymentMethod" value="duitnow_qr"> DuitNow QR</label></fieldset>
           <div class="field"><label for="note">Anything Wirni should know?</label><textarea id="note" placeholder="First timer, injury, experience level, etc."></textarea></div>
-          <button class="btn" type="submit">Send booking on WhatsApp</button>
-          <p class="notice">Wirni will confirm the booking personally. No payment is taken on this website yet.</p>
+          <button id="bookingSubmit" class="btn" type="submit">Confirm booking</button>
+          <p class="notice">This records your booking. Payment is arranged separately by cash or DuitNow QR.</p>
         </form>
       </section>
+
+      <section id="confirmationPanel" class="form-panel confirmation-panel" hidden aria-live="polite"></section>
     </div>
   </div>
+
+  <div id="managePanel" class="container manage-panel" hidden aria-live="polite"></div>
 </section>
 
 <footer class="footer"><div class="container footer-grid"><div class="logo-lockup"><img class="logo-mark" src="assets/mama-ashtanga-logo.png?v=2" alt=""><span class="brand">MAMA ASHTANGA<span>Yoga with Wirni</span></span></div><div><a href="tel:+60126243655">+60 12-624 3655</a><br><a href="mailto:wirni.lee@gmail.com">wirni.lee@gmail.com</a></div></div></footer>
 <script src="script.js"></script>
+<script src="booking.js"></script>
 </body></html>
