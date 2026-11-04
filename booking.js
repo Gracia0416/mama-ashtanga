@@ -3,7 +3,6 @@ const MALAYSIA_TIME_ZONE = 'Asia/Kuala_Lumpur';
 
 const bookingExperience = document.getElementById('bookingExperience');
 const bookingStatus = document.getElementById('bookingStatus');
-const managePanel = document.getElementById('managePanel');
 const classButtons = [...document.querySelectorAll('.class-option')];
 const calendarPanel = document.getElementById('calendarPanel');
 const calendarGrid = document.getElementById('calendarGrid');
@@ -217,8 +216,8 @@ bookingForm?.addEventListener('submit', async (event) => {
         requestId,
       }),
     });
-    const managementUrl = new URL('book.html', window.location.href);
-    managementUrl.searchParams.set('token', body.managementToken);
+    const managementUrl = new URL('my-bookings.html', window.location.href);
+    managementUrl.hash = `booking=${body.managementToken}`;
     try { localStorage.setItem('mamaAshtangaLatestBooking', managementUrl.href); } catch { /* The private link remains available below. */ }
     detailsPanel.hidden = true;
     confirmationPanel.hidden = false;
@@ -243,44 +242,9 @@ bookingForm?.addEventListener('submit', async (event) => {
   }
 });
 
-async function loadManagedBooking(token) {
-  bookingExperience.hidden = true;
-  bookingStatus.textContent = 'Loading your booking…';
-  managePanel.hidden = false;
-  try {
-    const {booking} = await api(`/booking?token=${encodeURIComponent(token)}`);
-    const status = String(booking.booking_status).replaceAll('_', ' ');
-    managePanel.innerHTML = `
-      <div class="kicker">Manage booking</div>
-      <h2>${escapeHtml(booking.class_type_name)}</h2>
-      <dl class="booking-summary"><div><dt>Reference</dt><dd>${escapeHtml(booking.booking_reference)}</dd></div><div><dt>Date</dt><dd>${escapeHtml(prettyDate(booking.starts_at))}</dd></div><div><dt>Time</dt><dd>${escapeHtml(sessionTime(booking))}${booking.preferred_time ? ` · preferred ${escapeHtml(booking.preferred_time.slice(0, 5))}` : ''}</dd></div><div><dt>People</dt><dd>${escapeHtml(booking.party_size)}</dd></div><div><dt>Status</dt><dd>${escapeHtml(status)}</dd></div><div><dt>Payment</dt><dd>${escapeHtml(String(booking.payment_status || 'not applicable').replaceAll('_', ' '))}</dd></div></dl>
-      ${booking.can_cancel ? '<div class="field"><label for="cancelReason">Reason for cancellation (optional)</label><textarea id="cancelReason"></textarea></div><button class="btn danger-btn" type="button" id="cancelBooking">Cancel booking</button>' : '<p class="policy-note">Online cancellation is unavailable within 24 hours of class and the booking is non-refundable. Please contact Wirni if you need help.</p>'}
-      <div class="confirmation-actions"><a class="btn btn-light" href="book.html">Book another class</a><a class="btn btn-light" href="https://wa.me/60126243655" target="_blank" rel="noopener">Contact Wirni</a></div>`;
-    bookingStatus.textContent = 'Your private booking details are shown below.';
-    bookingStatus.classList.add('success');
-    document.getElementById('cancelBooking')?.addEventListener('click', async () => {
-      const cancelButton = document.getElementById('cancelBooking');
-      cancelButton.disabled = true;
-      cancelButton.textContent = 'Cancelling…';
-      try {
-        await api('/cancel', {method: 'POST', body: JSON.stringify({token, reason: document.getElementById('cancelReason')?.value.trim() || null})});
-        bookingStatus.textContent = 'Your booking has been cancelled and the places are available again.';
-        bookingStatus.className = 'container booking-status success';
-        await loadManagedBooking(token);
-      } catch (error) {
-        bookingStatus.textContent = error.message;
-        bookingStatus.className = 'container booking-status error';
-        cancelButton.disabled = false;
-        cancelButton.textContent = 'Cancel booking';
-      }
-    });
-  } catch (error) {
-    bookingStatus.textContent = error.message;
-    bookingStatus.className = 'container booking-status error';
-    managePanel.innerHTML = '<h2>We could not find this booking.</h2><p>The management link may be invalid. Please contact Wirni for help.</p><a class="btn" href="book.html">Return to booking</a>';
-  }
-}
-
 const managementToken = new URLSearchParams(window.location.search).get('token');
-if (managementToken) loadManagedBooking(managementToken);
-else loadSessions();
+if (managementToken) {
+  const target = new URL('my-bookings.html', window.location.href);
+  target.hash = `booking=${managementToken}`;
+  window.location.replace(target.href);
+} else loadSessions();

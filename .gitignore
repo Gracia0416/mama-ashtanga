@@ -17,3 +17,6 @@ supabase/.temp/
 
 # Logs
 *.log
+
+# Editor settings
+.idea/
