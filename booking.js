@@ -55,7 +55,8 @@ function sessionTime(session) {
   const formatter = new Intl.DateTimeFormat('en-MY', {
     timeZone: MALAYSIA_TIME_ZONE, hour: 'numeric', minute: '2-digit'
   });
-  return `${formatter.format(new Date(session.starts_at))} to ${formatter.format(new Date(session.ends_at))}`;
+  const displayTime = (value) => formatter.format(new Date(value)).replace(/\b(am|pm)\b/gi, (period) => period.toUpperCase());
+  return `${displayTime(session.starts_at)} to ${displayTime(session.ends_at)}`;
 }
 
 function money(cents) {

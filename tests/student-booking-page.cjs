@@ -35,7 +35,7 @@ const token = 'a'.repeat(64);
     await page.goto(`${base}/my-bookings.html#booking=${token}`);
     await page.getByText('MA-TEST123').waitFor();
     assert.equal(await page.evaluate(() => location.hash), '');
-    for (const text of ['Group Yoga', '2', 'Confirmed', 'DuitNow QR', 'Unpaid', 'Eligible']) {
+    for (const text of ['Group Yoga', '6:00 PM', '2', 'Confirmed', 'DuitNow QR', 'Unpaid', 'Eligible']) {
       assert(await page.getByText(text, {exact: false}).count(), `Missing ${text} at ${width}px`);
     }
     assert.equal(await page.getByRole('link', {name: 'Contact Wirni'}).count(), 1);

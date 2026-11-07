@@ -13,7 +13,7 @@ const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character
 const label = (value) => String(value || '').replaceAll('_', ' ').replace(/^./, (letter) => letter.toUpperCase());
 const money = (cents) => cents == null ? 'To be arranged' : new Intl.NumberFormat('en-MY', {style: 'currency', currency: 'MYR'}).format(Number(cents) / 100);
 const date = (value) => new Intl.DateTimeFormat('en-MY', {timeZone: 'Asia/Kuala_Lumpur', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}).format(new Date(value));
-const time = (value) => new Intl.DateTimeFormat('en-MY', {timeZone: 'Asia/Kuala_Lumpur', hour: 'numeric', minute: '2-digit'}).format(new Date(value));
+const time = (value) => new Intl.DateTimeFormat('en-MY', {timeZone: 'Asia/Kuala_Lumpur', hour: 'numeric', minute: '2-digit'}).format(new Date(value)).replace(/\b(am|pm)\b/gi, (period) => period.toUpperCase());
 
 function notice(message, error = false) {
   managementStatus.textContent = message;
