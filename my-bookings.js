@@ -91,18 +91,27 @@ async function loadBooking(token) {
   }
 }
 
-const hash = new URLSearchParams(window.location.hash.slice(1));
-const query = new URLSearchParams(window.location.search);
-let token = hash.get('booking') || query.get('token');
-if (token) {
+function acceptToken(nextToken) {
+  if (!nextToken) return false;
+  token = nextToken;
   history.replaceState(null, '', window.location.pathname);
   try { sessionStorage.setItem('mamaSingleBooking', token); } catch { /* The current page still works. */ }
-} else {
-  try { token = sessionStorage.getItem('mamaSingleBooking'); } catch { token = null; }
+  loadBooking(token);
+  return true;
 }
 
-if (token) loadBooking(token);
-else {
+const query = new URLSearchParams(window.location.search);
+let token = null;
+if (!acceptToken(new URLSearchParams(window.location.hash.slice(1)).get('booking') || query.get('token'))) {
+  try { token = sessionStorage.getItem('mamaSingleBooking'); } catch { token = null; }
+  if (token) loadBooking(token);
+}
+
+window.addEventListener('hashchange', () => {
+  acceptToken(new URLSearchParams(window.location.hash.slice(1)).get('booking'));
+});
+
+if (!token) {
   missingLinkPanel.hidden = false;
   try {
     const latest = localStorage.getItem('mamaAshtangaLatestBooking');

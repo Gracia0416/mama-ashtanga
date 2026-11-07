@@ -32,7 +32,12 @@ const token = 'a'.repeat(64);
       return route.abort();
     });
 
-    await page.goto(`${base}/my-bookings.html#booking=${token}`);
+    await page.addInitScript(({latest}) => {
+      localStorage.setItem('mamaAshtangaLatestBooking', latest);
+      sessionStorage.clear();
+    }, {latest: `${base}/my-bookings.html#booking=${token}`});
+    await page.goto(`${base}/my-bookings.html`);
+    await page.getByRole('link', {name: 'Open my latest booking'}).click();
     await page.getByText('MA-TEST123').waitFor();
     assert.equal(await page.evaluate(() => location.hash), '');
     for (const text of ['Group Yoga', '6:00 PM', '2', 'Confirmed', 'DuitNow QR', 'Unpaid', 'Eligible']) {
