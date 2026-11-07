@@ -1,4 +1,7 @@
-const BOOKING_API_URL = 'https://nvkbobgmrxkjttjvxddl.supabase.co/functions/v1/booking-api';
+const BOOKING_API_PROJECT = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'wsgfpvajgxjypvmifukv'
+  : 'nvkbobgmrxkjttjvxddl';
+const BOOKING_API_URL = `https://${BOOKING_API_PROJECT}.supabase.co/functions/v1/booking-api`;
 const MALAYSIA_TIME_ZONE = 'Asia/Kuala_Lumpur';
 
 const bookingExperience = document.getElementById('bookingExperience');
