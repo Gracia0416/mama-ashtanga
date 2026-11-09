@@ -1,10 +1,18 @@
 # Booking API
 
-Development endpoint:
+Production endpoint:
 
 ```text
 https://nvkbobgmrxkjttjvxddl.supabase.co/functions/v1/booking-api
 ```
+
+Staging endpoint:
+
+```text
+https://wsgfpvajgxjypvmifukv.supabase.co/functions/v1/booking-api
+```
+
+Local pages served from `localhost` or `127.0.0.1` use staging. The published GitHub Pages site continues to use production.
 
 The API is deployed as the Supabase Edge Function in `supabase/functions/booking-api`.
 

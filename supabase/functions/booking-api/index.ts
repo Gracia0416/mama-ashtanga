@@ -86,6 +86,18 @@ Deno.serve(async (request) => {
       return json({ booking: data[0] })
     }
 
+    if (request.method === 'POST' && url.pathname.endsWith('/booking/view')) {
+      const body = await request.json()
+      const token = body.token
+      if (typeof token !== 'string' || !/^[a-f0-9]{64}$/.test(token)) {
+        return json({ error: 'Invalid management link' }, 404)
+      }
+      const { data, error } = await db.rpc('get_guest_booking', { p_cancellation_token: token })
+      if (error) throw error
+      if (!data?.length) return json({ error: 'Booking not found' }, 404)
+      return json({ booking: data[0] })
+    }
+
     if (request.method === 'POST' && url.pathname.endsWith('/cancel')) {
       const body = await request.json()
       const { data, error } = await db.rpc('cancel_guest_booking', {

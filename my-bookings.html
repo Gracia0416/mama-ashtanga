@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer"><meta name="robots" content="noindex">
+  <meta name="description" content="View or cancel one Mama Ashtanga booking.">
+  <title>My Booking · Mama Ashtanga</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav">
+  <a class="logo-lockup" href="index.html"><img class="logo-mark" src="assets/mama-ashtanga-logo.png?v=2" alt="Mama Ashtanga logo"><span class="brand">MAMA ASHTANGA<span>Yoga with Wirni</span></span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="primary-navigation"><a href="about.html">About</a><a href="location.html">Location</a><a href="my-bookings.html">My booking</a><a href="book.html" class="nav-btn">Book a class</a></nav>
+</div></header>
+
+<main>
+  <section class="page-hero"><div class="container"><div class="kicker">Your practice</div><h1>Manage your booking.</h1><p>Check your class details, payment information and cancellation eligibility.</p></div></section>
+  <section class="section management-section"><div class="container single-booking-layout">
+    <p id="managementStatus" class="booking-status" role="status" aria-live="polite" hidden></p>
+    <section id="bookingCard" class="manage-panel" hidden></section>
+    <section id="missingLinkPanel" class="manage-panel" hidden>
+      <div class="kicker">Private link required</div><h2>Open your booking link.</h2>
+      <p>Your booking confirmation contains a private <strong>Manage my booking</strong> link. Open that link to view or cancel your booking.</p>
+      <p id="latestBookingAction" hidden><a class="btn" id="latestBookingLink" href="#">Open my latest booking</a></p>
+      <div class="confirmation-actions"><a class="btn btn-light" href="book.html">Book a class</a><a class="btn btn-light" href="https://wa.me/60126243655" target="_blank" rel="noopener noreferrer">Contact Wirni</a></div>
+    </section>
+  </div></section>
+</main>
+
+<footer class="footer"><div class="container footer-grid"><div class="logo-lockup"><img class="logo-mark" src="assets/mama-ashtanga-logo.png?v=2" alt=""><span class="brand">MAMA ASHTANGA<span>Yoga with Wirni</span></span></div><div><a href="tel:+60126243655">+60 12-624 3655</a><br><a href="mailto:wirni.lee@gmail.com">wirni.lee@gmail.com</a></div></div></footer>
+<script src="script.js"></script><script src="my-bookings.js"></script>
+</body></html>
