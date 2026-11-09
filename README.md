@@ -28,6 +28,17 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
+## End-to-end booking tests
+
+Install the development dependency once, then run the Playwright suite:
+
+```sh
+npm install
+npm run test:e2e
+```
+
+Playwright starts the local website automatically and tests the complete two-person booking, confirmation, private management link and cancellation flow on mobile and desktop. API responses are mocked, so the tests do not write to staging or production.
+
 ## Current booking flow
 
 The booking page reads upcoming sessions from the development Supabase API. A visitor can choose a live session, see remaining capacity, enter contact and payment preferences, and create a database booking. The confirmation provides a private management link for viewing or cancelling the booking and an optional prepared WhatsApp message to Wirni.

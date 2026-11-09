@@ -11,6 +11,8 @@
 node_modules/
 dist/
 coverage/
+test-results/
+playwright-report/
 
 # Local Supabase CLI state
 supabase/.temp/
