@@ -4,7 +4,7 @@ const {MyBookingsPage} = require('./pages/my-bookings-page');
 const {CONFIRMED_BOOKING, MANAGEMENT_TOKEN, STUDENTS, groupSession} = require('./fixtures/booking-data');
 const {json, mockBookingApi} = require('./support/mock-booking-api');
 
-test.describe('booking lifecycle', () => {
+test.describe('booking flow and confirmation', () => {
   test('student books two places, manages the booking and cancels', async ({page}) => {
     let currentBooking = {...CONFIRMED_BOOKING};
     let submittedBooking;

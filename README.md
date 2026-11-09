@@ -43,7 +43,7 @@ The test framework is split by responsibility:
 
 ```text
 tests/
-├── booking-lifecycle.spec.js     Booking, management and returning access
+├── booking-flow-and-confirmation.spec.js  Booking, confirmation and returning access
 ├── booking-availability.spec.js  Capacity and duplicate-booking responses
 ├── booking-cancellation.spec.js  Cancellation-policy scenarios
 ├── fixtures/booking-data.js      Reusable students, sessions and booking data
