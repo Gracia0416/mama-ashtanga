@@ -81,6 +81,18 @@ async function loadSessions() {
     const to = new Date(Date.now() + 90 * 86400000).toISOString();
     const body = await api(`/sessions?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
     sessions = body.sessions || [];
+    if (selectedSession) {
+      const refreshedSession = sessions.find((session) => session.session_id === selectedSession.session_id);
+      const requestedPlaces = Number(partySize.value || 1);
+      if (!refreshedSession || !refreshedSession.booking_open || Number(refreshedSession.remaining_places) < requestedPlaces) {
+        selectedSession = null;
+        detailsPanel.className = 'form-panel hidden-until-date';
+        selectedSessionPanel.classList.remove('show');
+      } else {
+        selectedSession = refreshedSession;
+      }
+    }
+    if (selectedType) renderCalendar();
     bookingStatus.textContent = sessions.length
       ? 'Live availability is ready. Choose a class to begin.'
       : 'There are no upcoming sessions yet. Please check again soon.';
@@ -237,9 +249,9 @@ bookingForm?.addEventListener('submit', async (event) => {
     confirmationPanel.scrollIntoView({behavior: 'smooth', block: 'start'});
     await loadSessions();
   } catch (error) {
-    bookingStatus.textContent = error.message;
-    bookingStatus.classList.add('error');
     if (/24 hours|places remain/i.test(error.message)) await loadSessions();
+    bookingStatus.className = 'container booking-status error';
+    bookingStatus.textContent = error.message;
   } finally {
     bookingSubmit.disabled = false;
     bookingSubmit.textContent = 'Confirm booking';
