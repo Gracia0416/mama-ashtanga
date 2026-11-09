@@ -39,6 +39,19 @@ npm run test:e2e
 
 Playwright starts the local website automatically and tests the complete two-person booking, confirmation, private management link and cancellation flow on mobile and desktop. API responses are mocked, so the tests do not write to staging or production.
 
+The test framework is split by responsibility:
+
+```text
+tests/
+├── book-class-flow.spec.js       Product scenarios and assertions
+├── fixtures/booking-data.js      Reusable students, sessions and booking data
+├── pages/booking-page.js         Booking-page actions and locators
+├── pages/my-bookings-page.js     Management-page actions and locators
+└── support/mock-booking-api.js   Shared API interception helper
+```
+
+Keep business expectations in the spec, browser interactions in page objects, stable example records in fixtures, and HTTP mocking in support helpers.
+
 ## Pull request checks
 
 GitHub Actions runs the same Playwright suite whenever a pull request targeting `main` is opened or updated. The workflow installs the locked Node packages and Playwright Chrome before running all mobile and desktop scenarios. If a test fails, open the failed **Playwright booking flow** run in the repository's **Actions** tab to read its logs and download the seven-day failure report.
