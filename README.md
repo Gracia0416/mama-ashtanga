@@ -39,6 +39,12 @@ npm run test:e2e
 
 Playwright starts the local website automatically and tests the complete two-person booking, confirmation, private management link and cancellation flow on mobile and desktop. API responses are mocked, so the tests do not write to staging or production.
 
+## Pull request checks
+
+GitHub Actions runs the same Playwright suite whenever a pull request targeting `main` is opened or updated. The workflow installs the locked Node packages and Playwright Chrome before running all mobile and desktop scenarios. If a test fails, open the failed **Playwright booking flow** run in the repository's **Actions** tab to read its logs and download the seven-day failure report.
+
+After the first workflow run, configure a `main` branch ruleset in GitHub to require the **Mobile and desktop booking tests** check before merging. This turns the automated test from a visible warning into a release gate.
+
 ## Current booking flow
 
 The booking page reads upcoming sessions from the development Supabase API. A visitor can choose a live session, see remaining capacity, enter contact and payment preferences, and create a database booking. The confirmation provides a private management link for viewing or cancelling the booking and an optional prepared WhatsApp message to Wirni.
