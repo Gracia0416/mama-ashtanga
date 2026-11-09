@@ -43,7 +43,9 @@ The test framework is split by responsibility:
 
 ```text
 tests/
-├── book-class-flow.spec.js       Product scenarios and assertions
+├── booking-lifecycle.spec.js     Booking, management and returning access
+├── booking-availability.spec.js  Capacity and duplicate-booking responses
+├── booking-cancellation.spec.js  Cancellation-policy scenarios
 ├── fixtures/booking-data.js      Reusable students, sessions and booking data
 ├── pages/booking-page.js         Booking-page actions and locators
 ├── pages/my-bookings-page.js     Management-page actions and locators
