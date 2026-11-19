@@ -4,7 +4,7 @@ const {STUDENTS, groupSession} = require('./fixtures/booking-data');
 const {json, mockBookingApi} = require('./support/mock-booking-api');
 
 test.describe('booking availability rules', () => {
-  test('a class that fills while booking refuses the extra booking', async ({page}) => {
+  test('#AVAIL-01 a class that fills while booking refuses the extra booking', async ({page}) => {
     let remainingPlaces = 1;
     await mockBookingApi(page, {
       '/sessions': ({route}) => json(route, {sessions: [groupSession({
@@ -31,7 +31,7 @@ test.describe('booking availability rules', () => {
     await expect(bookingPage.confirmationHeading).toHaveCount(0);
   });
 
-  test('website shows a duplicate-booking rejection returned by the API', async ({page}) => {
+  test('#AVAIL-02 website shows a duplicate-booking rejection returned by the API', async ({page}) => {
     await mockBookingApi(page, {
       '/sessions': ({route}) => json(route, {sessions: [groupSession({booked_places: 1, remaining_places: 5})]}),
       '/bookings': ({route}) => json(route, {error: 'You already have an active booking for this class.'}, 409),
