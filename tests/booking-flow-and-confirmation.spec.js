@@ -5,7 +5,7 @@ const {CONFIRMED_BOOKING, MANAGEMENT_TOKEN, STUDENTS, groupSession} = require('.
 const {json, mockBookingApi} = require('./support/mock-booking-api');
 
 test.describe('booking flow and confirmation', () => {
-  test('student books two places, manages the booking and cancels', async ({page}) => {
+  test('#BOOK-01 student books two places, manages the booking and cancels', async ({page}) => {
     let currentBooking = {...CONFIRMED_BOOKING};
     let submittedBooking;
     const browserErrors = [];
@@ -56,7 +56,7 @@ test.describe('booking flow and confirmation', () => {
     expect(browserErrors).toEqual([]);
   });
 
-  test('student closes the site and reopens the latest booking in the same browser', async ({context, page}) => {
+  test('#BOOK-02 student closes the site and reopens the latest booking in the same browser', async ({context, page}) => {
     await mockBookingApi(context, {
       '/sessions': ({route}) => json(route, {sessions: [groupSession()]}),
       '/bookings': ({route}) => json(route, {

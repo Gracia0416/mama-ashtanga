@@ -4,7 +4,7 @@ const {CONFIRMED_BOOKING, MANAGEMENT_TOKEN} = require('./fixtures/booking-data')
 const {json, mockBookingApi} = require('./support/mock-booking-api');
 
 test.describe('booking cancellation policy', () => {
-  test('booking inside the 24-hour window cannot be cancelled online', async ({page}) => {
+  test('#CANCEL-01 booking inside the 24-hour window cannot be cancelled online', async ({page}) => {
     let cancellationRequests = 0;
     const lateBooking = {...CONFIRMED_BOOKING, can_cancel: false};
     await mockBookingApi(page, {
